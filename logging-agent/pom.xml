@@ -5,4 +5,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Constellation Logging Agent</name>
   <description>Agent to collect different logging types and ship to a broker</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.apache.logging.log4j</groupId>
+  		<artifactId>log4j-core</artifactId>
+  		<version>2.1</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  </dependencies>
 </project>
