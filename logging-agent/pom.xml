@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tlantic.constellation</groupId>
 	<artifactId>logging-agent</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>4.5-SNAPSHOT</version>
 	<name>Constellation Logging Agent</name>
 	<description>Agent to collect different logging types and ship to a broker</description>
 
@@ -66,7 +66,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<!-- Copying resources and tools for project execution -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -83,11 +83,32 @@
 							<outputDirectory>${project.build.directory}/vendor</outputDirectory>
 							<resources>
 								<resource>
-									<directory>tools/logstash</directory>
+									<directory>resources/logstash</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- create tar.gz file -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<finalName>mrs-logging-agent-${project.version}</finalName>
+					<descriptors>
+						<descriptor>/resources/assembly/bin.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
