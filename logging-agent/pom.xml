@@ -6,6 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Constellation Logging Agent</name>
 	<description>Agent to collect different logging types and ship to a broker</description>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -18,8 +19,11 @@
 			<version>2.1</version>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<plugins>
+
+			<!-- Execute through eclipse -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -28,6 +32,40 @@
 					<mainClass>com.tlantic.constellation.agent.Main</mainClass>
 				</configuration>
 			</plugin>
+
+			<!-- Build an executable JAR -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.tlantic.constellation.agent.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			
+			<!-- copying dependencies during package phase -->
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<version>2.9</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
 		</plugins>
 	</build>
 </project>

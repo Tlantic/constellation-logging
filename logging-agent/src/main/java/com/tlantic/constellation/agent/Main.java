@@ -9,5 +9,16 @@ public class Main {
 	
 	public static void main(String[] args) {
 		log.info("Testando 1... 2... 3...");
+		log.debug("Debugging 1,2,3");
+		log.trace("Tracing 1,2,3");
+		log.warn("Warning 1,2,3");
+		log.error("Ihhhhhhhh....");
+		
+		try {
+			throw new Exception("blowing up!");
+		} catch (Exception e) {
+			log.catching(e);
+		}
+		
 	}
 }
