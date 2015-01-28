@@ -28,8 +28,12 @@
 		<Root level="debug">
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="File" />
-			<!-- <AppenderRef ref="Shipper" />  -->
 		</Root>
+		<Root level="trace">
+			<AppenderRef ref="File" />
+			<AppenderRef ref="Shipper" />
+		</Root>
+		
 	</Loggers>
 
 </Configuration>

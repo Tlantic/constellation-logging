@@ -1,11 +1,10 @@
 input {
-	log4j {
-		add_field => ["application_name", "mrs_server"],
+	tcp {
+		host => "localhost"
+		mode => "server"
+		port => "9500"
 	}
 }
 output {
-	stdout { 
-		debug => true
-		workers => 1
-	} 
+	stdout {} 
 }
