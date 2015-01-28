@@ -46,7 +46,7 @@
 							<mainClass>com.tlantic.constellation.agent.Main</mainClass>
 						</manifest>
 					</archive>
-				</configuration>
+				</configuration>				
 			</plugin>
 
 			<!-- copying dependencies during package phase -->
@@ -80,12 +80,18 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/vendor</outputDirectory>
+							<outputDirectory>${project.build.directory}/shipper</outputDirectory>
 							<resources>
 								<resource>
 									<directory>resources/logstash</directory>
 									<filtering>true</filtering>
 								</resource>
+								<resource>
+									<directory>resources/config</directory>
+									<includes>
+										<include>shipper.js</include>
+									</includes>
+								</resource>								
 							</resources>
 						</configuration>
 					</execution>
@@ -100,7 +106,7 @@
 				<configuration>
 					<finalName>mrs-logging-agent-${project.version}</finalName>
 					<descriptors>
-						<descriptor>/resources/assembly/bin.xml</descriptor>
+						<descriptor>/resources/assembly/dist.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
