@@ -20,7 +20,7 @@
 		</RollingFile>
 		
 		<Socket name="Shipper" host="localhost" port="9500">
-			<SerializedLayout />
+			<JSONLayout />
 		</Socket>
 	</Appenders>
 
