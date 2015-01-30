@@ -30,3 +30,4 @@ Mobile Retail Suite Orchestrator
 - http://www.rabbitmq.com/
 - http://activemq.apache.org/apollo/
 - http://activemq.apache.org/
+- http://hornetq.jboss.org
