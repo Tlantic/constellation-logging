@@ -18,3 +18,11 @@ Mobile Retail Suite Orchestrator
 - http://logstash.net/docs/1.4.2/outputs/elasticsearch
 - http://logstash.net/docs/1.4.2/outputs/redis
 - http://logstash.net/docs/1.4.2/inputs/redis
+
+## Technologies
+
+### Logstash
+- http://logstash.net/docs/1.4.2/
+
+### Redis
+- http://redis.io/
