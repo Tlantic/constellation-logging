@@ -24,5 +24,7 @@ Mobile Retail Suite Orchestrator
 ### Logstash
 - http://logstash.net/docs/1.4.2/
 
-### Redis
+### MQ Solutions
+- http://queues.io/
 - http://redis.io/
+- http://www.rabbitmq.com/
