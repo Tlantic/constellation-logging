@@ -31,3 +31,4 @@ Mobile Retail Suite Orchestrator
 - http://activemq.apache.org/apollo/
 - http://activemq.apache.org/
 - http://hornetq.jboss.org
+- http://zeromq.org/
