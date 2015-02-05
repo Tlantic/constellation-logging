@@ -22,5 +22,9 @@
 			<directory>${project.build.directory}/shipper</directory>
 			<outputDirectory>/shipper</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/examples</directory>
+			<outputDirectory>/samples</outputDirectory>
+		</fileSet>
 	</fileSets>
 </assembly>
