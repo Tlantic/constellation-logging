@@ -1,5 +1,6 @@
 ﻿using System;
 using log4net;
+using log4net.Ext;
 
 namespace demo
 {
@@ -7,8 +8,10 @@ namespace demo
 	{
 		public static void Main (string[] args)
 		{
-			ILog log = LogManager.GetLogger ("my-logger-name");
-			log.Info ("yada");
+			ILog log = LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().Name);
+			log.Info (".Net Info");
+
+			log.Debug ("Bubbles from .Net");
 		}
 	}
 }

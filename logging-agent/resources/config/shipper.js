@@ -6,7 +6,7 @@ input {
 		port => "9500"
 		codec => json {}
 	}
-	
+
 	udp {
 		type => "log4net"
 		port => "9500"
@@ -15,6 +15,9 @@ input {
 		}
 	}	
 }
+
 output {
-	stdout {} 
+	stdout {
+		codec => json {}
+	} 
 }

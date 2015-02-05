@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration name="Development">
+
+	<Properties>
+		<Property name="Directory">./target/logs</Property>
+		<Property name="Filename">log4socket-demo.log</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<RollingFile name="File" fileName="${Directory}/${Filename}"
+			filePattern="${log-path}/log4socket-demo-%d{yyyy-MM-dd}.log">
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+		</RollingFile>
+		
+		<Socket name="Shipper" protocol="tcp" host="localhost" port="9500">
+			<JSONLayout />
+		</Socket>
+	</Appenders>
+
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="File"/>
+			<AppenderRef ref="Shipper"/>
+		</Root>		
+	</Loggers>
+
+</Configuration>
