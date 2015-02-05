@@ -2,7 +2,7 @@
 <Configuration name="Development">
 
 	<Properties>
-		<Property name="Directory">./target/logs</Property>
+		<Property name="Directory">./logs</Property>
 		<Property name="Filename">constellation-logging.log</Property>
 	</Properties>
 
@@ -14,22 +14,21 @@
 		<RollingFile name="File" fileName="${Directory}/${Filename}"
 			filePattern="${log-path}/constellation-logging-%d{yyyy-MM-dd}.log">
 			<Policies>
-				<TimeBasedTriggeringPolicy interval="1"
-					modulate="true" />
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
 		</RollingFile>
 		
 		<Socket name="Shipper" host="localhost" port="9500">
-			<SerializedLayout />
+			<JSONLayout />
 		</Socket>
 	</Appenders>
 
 	<Loggers>
-		<Root level="debug">
-			<AppenderRef ref="Console" />
-			<AppenderRef ref="File" />
-			<!-- <AppenderRef ref="Shipper" />  -->
-		</Root>
+		<Root>
+			<AppenderRef ref="Console" 	level="info" />
+			<AppenderRef ref="File" 	level="trace" />
+			<AppenderRef ref="Shipper" 	level="trace"/>
+		</Root>		
 	</Loggers>
 
 </Configuration>

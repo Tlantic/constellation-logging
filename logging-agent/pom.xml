@@ -6,24 +6,10 @@
 	<version>4.5-SNAPSHOT</version>
 	<name>Constellation Logging Agent</name>
 	<description>Agent to collect different logging types and ship to a broker</description>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.1</version>
-		</dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
 
-			<!-- Execute through eclipse -->
+			<!-- Execute through eclipse | adjust permissions to execution -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -74,17 +60,39 @@
 				<version>2.5</version>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
+						<id>copy-resources-shipper</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/vendor</outputDirectory>
+							<outputDirectory>${project.build.directory}/shipper</outputDirectory>
 							<resources>
 								<resource>
+									<filtering>false</filtering>
 									<directory>resources/logstash</directory>
-									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<directory>resources/config</directory>
+									<includes>
+										<include>shipper.js</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-examples</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/examples</outputDirectory>
+							<resources>
+								<resource>
+									<filtering>false</filtering>
+									<directory>resources/examples</directory>
 								</resource>
 							</resources>
 						</configuration>
@@ -100,7 +108,7 @@
 				<configuration>
 					<finalName>mrs-logging-agent-${project.version}</finalName>
 					<descriptors>
-						<descriptor>/resources/assembly/bin.xml</descriptor>
+						<descriptor>/resources/assembly/dist.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
