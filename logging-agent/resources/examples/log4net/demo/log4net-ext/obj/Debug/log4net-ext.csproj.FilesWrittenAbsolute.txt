@@ -1,0 +1,6 @@
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/bin/Debug/log4net-ext.dll.mdb
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/bin/Debug/log4net-ext.dll
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/obj/Debug/log4net-ext.dll
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/obj/Debug/log4net-ext.dll.mdb
+/home/linck/Documents/repo/constellation/constellation-logging/logging-agent/resources/examples/log4net/demo/log4net-ext/bin/Debug/log4net.dll

@@ -16,6 +16,17 @@ input {
 	}	
 }
 
+
+filter {
+	
+	if [type] == "log4net" {
+			grok {
+				match => ["message","%{LOGLEVEL:level} %{TIMESTAMP_ISO8601:sourceTimestamp} %{WORD:thread} %{WORD:widget} - %{GREEDYDATA:message}"]
+				overwrite => ["message"]
+			}
+	}
+}
+
 output {
 	stdout {
 		codec => json {}
