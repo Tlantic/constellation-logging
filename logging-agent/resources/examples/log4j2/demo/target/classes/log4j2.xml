@@ -8,18 +8,17 @@
 
 	<Appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<PatternLayout pattern="[${hostName}][%-5level] %d{ISO8601} [%t]::%logger{36} - %msg%n" />
 		</Console>
 
-		<RollingFile name="File" fileName="${Directory}/${Filename}"
-			filePattern="${log-path}/log4socket-demo-%d{yyyy-MM-dd}.log">
+		<RollingFile name="File" fileName="${Directory}/${Filename}" filePattern="${log-path}/log4socket-demo-%d{yyyy-MM-dd}.log">
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
 		</RollingFile>
 		
-		<Socket name="Shipper" protocol="tcp" host="localhost" port="9500">
-			<JSONLayout />
+		<Socket name="Shipper" protocol="udp" host="localhost" port="9500">
+			<PatternLayout pattern="${hostName} %level %d{ISO8601} %t %logger - %msg%n"/>
 		</Socket>
 	</Appenders>
 
