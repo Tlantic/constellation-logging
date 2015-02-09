@@ -1,7 +1,6 @@
 input {
-	
 	# Log4j2 input format expected. JSON Layout is not being used because log4j2 message arrives "splitted".
-	# TCP protocol is the default, but is not being used to avoid network dependency when logging.
+	# TCP protocol is the default, but is not being used to avoid network dependency when logging (log4j does not handle reconnect well).
 	# This channel is used by server => 5.x and other java solutions.
 	# log4j input doesn't work for v2 logging lib.
 	udp {
@@ -24,36 +23,23 @@ input {
 	}	
 }
 
-
+# add type to message to be forwarded
 filter {
-	
-	if [type] == "log4j2" {
-			
-			# Log4j2  handles thread and widget differently;
-			grok {
-				match => ["message","%{IPORHOST:hostname} %{LOGLEVEL:level} %{TIMESTAMP_ISO8601:sourceTimestamp} %{DATA:thread} %{DATA:widget} - %{GREEDYDATA:message}"]
-				overwrite => ["message"]
-			}
-
-			
-	} else if [type] == "log4net" {
-			
-			# Log4net message "normalization": receives a text message and performs a "sushi" to build a json message		
-			grok {
-				match => ["message","%{IPORHOST:hostname} %{LOGLEVEL:level} %{TIMESTAMP_ISO8601:sourceTimestamp} %{WORD:thread} %{WORD:widget} - %{GREEDYDATA:message}"]
-				overwrite => ["message"]
-			}
-	}
-	
-	
-	# NO ONE CARES ABOUT DEBUG MESSAGES
-	if [level] == "DEBUG" {
-			drop {}
+	mutate {
+		update => ["message", "%{type} %{message}"]
 	}
 }
 
+
+# send data to log service centralized (forwarder)
 output {
-	stdout {
-		codec => json{}
-	} 
+	tcp {
+		mode => "client"
+		host => "localhost"
+		port => "9600"
+		reconnect_interval => "10"
+		codec => plain {
+			charset => "UTF-8"
+		}
+	}
 }

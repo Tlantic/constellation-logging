@@ -19,8 +19,8 @@
 			<outputDirectory>/lib</outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>${project.build.directory}/shipper</directory>
-			<outputDirectory>/shipper</outputDirectory>
+			<directory>${project.build.directory}/core</directory>
+			<outputDirectory>/core</outputDirectory>
 		</fileSet>
 		<fileSet>
 			<directory>${project.build.directory}/examples</directory>

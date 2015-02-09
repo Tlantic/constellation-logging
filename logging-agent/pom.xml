@@ -60,13 +60,13 @@
 				<version>2.5</version>
 				<executions>
 					<execution>
-						<id>copy-resources-shipper</id>
+						<id>copy-resources-core</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/shipper</outputDirectory>
+							<outputDirectory>${project.build.directory}/core</outputDirectory>
 							<resources>
 								<resource>
 									<filtering>false</filtering>
@@ -75,7 +75,7 @@
 								<resource>
 									<directory>resources/config</directory>
 									<includes>
-										<include>shipper.js</include>
+										<include>*.js</include>
 									</includes>
 								</resource>
 							</resources>
