@@ -23,6 +23,7 @@ input {
 	}	
 }
 
+
 # add type to message to be forwarded
 filter {
 	mutate {
@@ -31,15 +32,10 @@ filter {
 }
 
 
-# send data to log service centralized (forwarder)
+# send data to log service centralized (queue)
 output {
-	tcp {
-		mode => "client"
-		host => "localhost"
-		port => "9600"
-		reconnect_interval => "10"
-		codec => plain {
-			charset => "UTF-8"
-		}
+	redis {
+		key => "mrslog"
+		data_type => ["list"]
 	}
 }
