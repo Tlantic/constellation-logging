@@ -4,38 +4,41 @@ input {
 	# This channel is used by server => 5.x and other java solutions.
 	# log4j input doesn't work for v2 logging lib.
 	udp {
-		type => "log4j2"
+		
+		#protocol config
 		port => "9500"
 		codec => plain {
 			charset => "UTF-8"
 		}
+		
+		# identifying message source
+		tags => ["log4j2","mrs","server","v5"]
 	}
 
 	# This channel is available for .Net applications configured to use log4net.
 	# Log4net does not provide SocketAppender as log4j, making this solution incompatible with tcp channel.
 	# To support 4.x servers, an udp port channel was created. 
 	udp {
-		type => "log4net"
+		
+		# protocol config
 		port => "9501"
 		codec => plain {
 			charset => "UTF-8"
 		}
+		
+		# identifying message source
+		tags => ["log4net","mrs","server","v4"]
 	}	
 }
 
-
-# add type to message to be forwarded
-filter {
-	mutate {
-		update => ["message", "%{type} %{message}"]
-	}
-}
-
-
 # send data to log service centralized (queue)
 output {
-	redis {
-		key => "mrslog"
-		data_type => ["list"]
+	
+	# handling mrs messages
+	if "mrs" in [tags] {
+		redis {
+			key => "mrslog"
+			data_type => ["list"]
+		}
 	}
 }
