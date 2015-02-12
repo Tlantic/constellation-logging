@@ -1,8 +1,9 @@
 input {
+	
+	# monitor mrs logs
 	redis {
 		key => "mrslog"
-		data_type => "list"
-		type => ["mrslog"]
+		data_type => ["list"]
 	}
 }
 
@@ -12,33 +13,58 @@ filter {
 	# handling mrs logs
 	if "mrs" in [tags] {
 		
-		
-		# breaking message
+		# parsing info
 		grok {
-			match => ["message", "%{IPORHOST:hostname} %{LOGLEVEL:level} %{TIMESTAMP_ISO8601:eventTimestamp} %{DATA:thread} %{DATA:logger} - %{GREEDYDATA:message}"]
+			match => ["message","%{IPORHOST:agentHost} %{LOGLEVEL:level} %{TIMESTAMP_ISO8601:agentTimestamp} %{DATA:thread} %{DATA:logger} - %{GREEDYDATA:message}"]
 			overwrite => ["message"]
 		}
 		
-		# no one cares about DEBUG messages
+		# IMPORTANT: MRS does not care about debug messages!!
 		if [level] == "DEBUG" {
-				drop{}
+				drop {}
+		}
+			
+	} else {
+		
+		# setting as unknown message
+		mutate {
+			add_tag => ["unknown"]
+		}
+	}
+	
+	
+	# HANDLING EXCEPTIONS
+	if "unknown" in [tags] {
+		
+		# handling unknown messages
+		mutate {
+			add_tag => ["%{type}"]
+			update => ["type","unknown"]
 		}
 		
-	} else {
-		# WARNING: UNHANDLED MESSAGES ARE BEING DROPPED!
-		drop {}
-	}
+	} else if "_grokparsefailure" in [tags] {
+		
+		# handling parse failures
+		mutate {
+			add_tag => ["%{type}"]
+			update => ["type","failures"]
+		}		
+	} 
 }
 
 
 # dispatch to elasticsearch
-output {
-	
+output {		
 	# dispatch to an embedded elasticsearch (logstash).
 	# works for standalone messages only.
 	# NEED to think about multi STORE/BRAND and so on...
 	elasticsearch {
+		
+		# job config
+		workers => 10
 		host => ["localhost"]
+		
+		# indexing destination
 		index => "standalone-%{+YYYY.MM.dd}"
 	}
 }
