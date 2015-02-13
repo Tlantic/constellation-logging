@@ -1,6 +1,10 @@
 ﻿<Properties StartupItem="demo.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="log4net-ext/SocketAppender.cs">
+    <Files>
+      <File FileName="log4net-ext/SocketAppender.cs" Line="22" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

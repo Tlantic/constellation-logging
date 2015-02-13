@@ -5,7 +5,7 @@ namespace log4net {
 
 		public static class ILogExtentions 
 		{
-			private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+			//private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 			public static void Trace(this ILog log, string message, Exception exception)
 			{

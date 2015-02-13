@@ -61,7 +61,7 @@ output {
 	elasticsearch {
 		
 		# job config
-		workers => 10
+		workers => 1
 		host => ["localhost"]
 		
 		# indexing destination

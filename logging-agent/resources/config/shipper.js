@@ -3,9 +3,11 @@ input {
 	# This channel is available for .Net applications configured to use log4net.
 	# Log4net does not provide SocketAppender as log4j, making this solution incompatible with tcp channel.
 	# To support 4.x servers, an udp port channel was created. 
-	udp {
+	#
+	# CHANGED: currently testing a "custom" SocketAppender implementation
+	tcp {
 		# protocol config
-		workers => 10
+		mode => "server"
 		port => "9500"
 		codec => plain {
 			charset => "UTF-8"
@@ -19,16 +21,15 @@ input {
 		add_field => ["application_name", "mrs-server"]
 		add_field => ["application_version", "v4"]
 		add_field => ["widget", "monolithic"]	
-	}	
+	}
 }
 
 
 # send data to log service centralized (queue)
 output {
-	
 	# handling messages per type
 	redis {
-		workers => 10
+		workers => 1
 		key => "%{type}"
 		data_type => ["list"]
 	}
