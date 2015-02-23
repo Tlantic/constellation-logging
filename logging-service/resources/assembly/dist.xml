@@ -21,7 +21,6 @@
 		<fileSet>
 			<directory>${project.build.directory}/queue</directory>
 			<outputDirectory>/queue</outputDirectory>
-			<fileMode />
 		</fileSet>
 	</fileSets>
 </assembly>
