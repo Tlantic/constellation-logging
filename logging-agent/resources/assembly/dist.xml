@@ -5,7 +5,7 @@
 	<id>bin</id>
 	<formats>
 		<format>zip</format>
-	</formats>
+	</formats>	
 	<fileSets>
 		<fileSet>
 			<directory>${project.build.directory}</directory>
@@ -21,10 +21,7 @@
 		<fileSet>
 			<directory>${project.build.directory}/core</directory>
 			<outputDirectory>/core</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>${project.build.directory}/examples</directory>
-			<outputDirectory>/samples</outputDirectory>
+			<fileMode />
 		</fileSet>
 	</fileSets>
 </assembly>
