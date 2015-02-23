@@ -81,21 +81,28 @@
 							</resources>
 						</configuration>
 					</execution>
+				</executions>
+			</plugin>
+
+			<!-- adjust file permissions -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
 					<execution>
-						<id>copy-resources-examples</id>
+						<id>package-permissions</id>
 						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/examples</outputDirectory>
-							<resources>
-								<resource>
-									<filtering>false</filtering>
-									<directory>resources/examples</directory>
-								</resource>
-							</resources>
+							<target>
+								<chmod file="${project.build.directory}/core/bin/logstash" perm="755" />
+								<chmod file="${project.build.directory}/core/bin/logstash.lib.sh" perm="755" />
+								<chmod file="${project.build.directory}/core/bin/plugin" perm="755" />
+							</target>
 						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
