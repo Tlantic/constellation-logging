@@ -129,4 +129,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.tlantic.constellation</groupId>
+			<artifactId>logging-commons</artifactId>
+			<version>4.5-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>
