@@ -12,6 +12,7 @@ public abstract class CommandExecutor {
 	public static int run (ServiceCommand command) throws IOException, InterruptedException {
 		Process proc = new ProcessBuilder(command.getCliParams()).start();
 		
+		// FIXME remove this and replace for logging.
 		InputStream is = proc.getInputStream();
 		InputStreamReader isr = new InputStreamReader(is);
 		BufferedReader br = new BufferedReader(isr);
@@ -20,6 +21,7 @@ public abstract class CommandExecutor {
 		while ((line = br.readLine()) != null) {
 		  System.out.println(line);
 		}		
+		
 		
 		return proc.waitFor();
 	}
