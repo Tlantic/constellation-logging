@@ -6,8 +6,17 @@ public class ShipperStartCommand extends BaseCommand {
 
 	@Override
 	public String[] getCliParams() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// initializing params
+		String[] params = new String[4];
+		
+		// defining params
+		params[0] = "./core/bin/logstash";
+		params[1] = "agent";
+		params[2] = "-f";
+		params[3] = "./core/shipper.js";
+		
+		// returning params
+		return params;
 	}
-
 }

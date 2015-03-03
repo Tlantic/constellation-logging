@@ -1,14 +1,15 @@
 package com.tlantic.constellation.logging.commons.commands;
 
-import com.tlantic.constellation.logging.commons.CommandExecutor;
+import java.io.IOException;
 
-public abstract class BaseCommand extends CommandExecutor implements
-		ServiceCommand {
+import com.tlantic.constellation.logging.commons.executors.CommandExecutor;
+
+
+public abstract class BaseCommand implements ServiceCommand {
 	
 	public abstract String[] getCliParams();
 	
 	
-	@Override
 	public String toString() {
 		String [] params  = getCliParams();
 		StringBuilder converted = new StringBuilder();
@@ -29,8 +30,19 @@ public abstract class BaseCommand extends CommandExecutor implements
 
 
 	public int execute() {
-		// TODO Need to get CLI params and pass to an executor.
-		return 0;
+		int result = 0;
+		
+		try {
+			result = CommandExecutor.run(this);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	
