@@ -1,8 +1,129 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.tlantic.constellation</groupId>
-  <artifactId>logging-smart-analytics</artifactId>
-  <version>4.5-SNAPSHOT</version>
-  <name>Constellation Logging Smart Analytics Service</name>
-  <description>Service to process logging service messages to a elasticsearch, performing analytic rules.</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.tlantic.constellation</groupId>
+	<artifactId>logging-smart-analytics</artifactId>
+	<version>4.5-SNAPSHOT</version>
+	<name>Constellation Logging Smart Analytics Service</name>
+	<description>Service to process logging service messages to a elasticsearch, performing analytic rules.</description>
+
+	<build>
+		<plugins>
+			
+			<!-- Execute through eclipse | adjust permissions to execution -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<mainClass>com.tlantic.constellation.analytics.Main</mainClass>
+				</configuration>
+			</plugin>
+			
+			<!-- Build an executable JAR -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.tlantic.constellation.analytics.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			
+			<!-- copying dependencies during package phase -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- Copying resources and tools for project execution -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-resources-core</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/engine</outputDirectory>
+							<resources>
+								<resource>
+									<filtering>false</filtering>
+									<directory>resources/elasticsearch</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<!-- adjust file permissions 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>package-permissions</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<chmod file="${project.build.directory}/core/bin/logstash" perm="755" />
+								<chmod file="${project.build.directory}/core/bin/logstash.lib.sh" perm="755" />
+								<chmod file="${project.build.directory}/core/bin/plugin" perm="755" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>	-->		
+
+			<!-- create tar.gz file -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<finalName>mrs-logging-analytics-${project.version}</finalName>
+					<descriptors>
+						<descriptor>/resources/assembly/dist.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>			
+			
+		</plugins>
+	</build>
+
 </project>
