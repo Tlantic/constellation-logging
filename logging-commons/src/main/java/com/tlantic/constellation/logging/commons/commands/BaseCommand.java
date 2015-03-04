@@ -3,11 +3,28 @@ package com.tlantic.constellation.logging.commons.commands;
 import java.io.IOException;
 
 import com.tlantic.constellation.logging.commons.executors.CommandExecutor;
+import com.tlantic.constellation.logging.commons.helper.OperatingSystemHelper;
 
 
 public abstract class BaseCommand implements ServiceCommand {
 	
-	public abstract String[] getCliParams();
+	
+	
+	public abstract String[] getCliParamsForWindows();
+	public abstract String[] getCliParamsForUX();
+	public abstract String[] getCliParamsForMac();
+	public abstract String[] getCliParamsForSolaris();
+
+
+	public String[] getCliParams() {
+		
+		if (OperatingSystemHelper.isWindows()) {
+			return getCliParamsForWindows();
+			
+		} else {
+			return getCliParamsForUX();
+		}
+	}
 	
 	
 	public String toString() {
