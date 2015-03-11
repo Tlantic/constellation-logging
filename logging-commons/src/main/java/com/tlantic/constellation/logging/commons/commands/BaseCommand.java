@@ -41,7 +41,7 @@ public abstract class BaseCommand implements ServiceCommand {
 			if ( (i+1) < params.length ) {
 				converted.append(" ");
 			}
-		}
+		} 
 		return converted.toString();
 	}
 

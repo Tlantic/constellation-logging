@@ -1,11 +1,10 @@
 package com.tlantic.constellation.logging.commons.helper;
-import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+import org.junit.Test;
+
 import com.tlantic.constellation.logging.commons.helper.OperatingSystemHelper;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 public class OperatingSystemHelperTest extends OperatingSystemHelper{
 
 
