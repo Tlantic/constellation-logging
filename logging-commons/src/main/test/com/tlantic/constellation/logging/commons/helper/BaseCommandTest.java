@@ -1,6 +1,6 @@
 package com.tlantic.constellation.logging.commons.helper;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -15,6 +15,17 @@ public class BaseCommandTest extends BaseCommand{
 		result = this.toString();
 		if(result.charAt(result.length()-1)==' '){
 			assertFalse(false);
+		}
+	}
+
+	
+
+	@Test
+	public void execute_test(){
+		int result;
+		result = this.execute();
+		if(result != 0){
+			assertTrue(true);
 		}
 	}
 
