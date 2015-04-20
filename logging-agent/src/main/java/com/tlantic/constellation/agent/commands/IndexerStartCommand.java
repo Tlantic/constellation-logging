@@ -2,7 +2,7 @@ package com.tlantic.constellation.agent.commands;
 
 import com.tlantic.constellation.logging.commons.commands.BaseCommand;
 
-public class ShipperStartCommand extends BaseCommand {
+public class IndexerStartCommand extends BaseCommand {
 	
 	@Override
 	public String[] getCliParamsForWindows() {
@@ -13,7 +13,7 @@ public class ShipperStartCommand extends BaseCommand {
 		params[0] = "core\\bin\\logstash.bat";
 		params[1] = "agent";
 		params[2] = "-f";
-		params[3] = "core//shipper.js";
+		params[3] = "core//indexer.js";
 		
 		// returning params
 		return params;
@@ -28,7 +28,7 @@ public class ShipperStartCommand extends BaseCommand {
 		params[0] = "./core/bin/logstash";
 		params[1] = "agent";
 		params[2] = "-f";
-		params[3] = "./core/shipper.js";
+		params[3] = "./core/indexer.js";
 		
 		// returning params
 		return params;

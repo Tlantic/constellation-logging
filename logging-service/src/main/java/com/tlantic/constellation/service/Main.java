@@ -1,9 +1,12 @@
 package com.tlantic.constellation.service;
 
+import com.tlantic.constellation.service.commands.RedisStartCommand;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		RedisStartCommand cmd = new RedisStartCommand();
+		cmd.execute();
 
 	}
 

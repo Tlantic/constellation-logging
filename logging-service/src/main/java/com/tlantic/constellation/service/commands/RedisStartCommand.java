@@ -1,19 +1,16 @@
-package com.tlantic.constellation.agent.commands;
+package com.tlantic.constellation.service.commands;
 
 import com.tlantic.constellation.logging.commons.commands.BaseCommand;
 
-public class ShipperStartCommand extends BaseCommand {
+public class RedisStartCommand extends BaseCommand {
 	
 	@Override
 	public String[] getCliParamsForWindows() {
 		// initializing params
-		String[] params = new String[4];
+		String[] params = new String[1];
 		
 		// defining params
-		params[0] = "core\\bin\\logstash.bat";
-		params[1] = "agent";
-		params[2] = "-f";
-		params[3] = "core//shipper.js";
+		params[0] = "queue\\win64\\redis-server.exe";
 		
 		// returning params
 		return params;
@@ -22,14 +19,8 @@ public class ShipperStartCommand extends BaseCommand {
 	@Override
 	public String[] getCliParamsForUX() {
 		// initializing params
+		
 		String[] params = new String[4];
-		
-		// defining params
-		params[0] = "./core/bin/logstash";
-		params[1] = "agent";
-		params[2] = "-f";
-		params[3] = "./core/shipper.js";
-		
 		// returning params
 		return params;
 	}

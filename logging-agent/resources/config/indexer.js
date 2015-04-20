@@ -62,9 +62,10 @@ output {
 		
 		# job config
 		workers => 1
-		host => ["localhost"]
+		host => ["10.58.1.86"]
+		cluster => "elasticsearchTlt"
 		
 		# indexing destination
-		index => "standalone-%{+YYYY.MM.dd}"
+		index => "standalone-%{type}"
 	}
 }
