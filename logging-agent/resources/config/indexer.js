@@ -1,71 +1,50 @@
 input {
-	
-	# monitor mrs logs
-	redis {
-		key => "mrslog"
-		data_type => ["list"]
-	}
+    rabbitmq {
+        host => "localhost"
+        queue => "mrs.logging.queue"
+        durable => true
+        key => "Mrs.InStore"
+        exchange => "mrs.logging.excg"
+        prefetch_count =>  50
+        threads => 2
+    }
+
+    rabbitmq {
+        host => "localhost"
+        queue => "instore.analytics.queue"
+        durable => true
+        prefetch_count =>  50
+        threads => 2
+    }
 }
 
-# normalize JSON structure/format
-filter {
-	
-	# handling mrs logs
-	if "mrs" in [tags] {
-		
-		# parsing info
-		grok {
-			match => ["message","%{IPORHOST:agentHost} %{LOGLEVEL:level} %{TIMESTAMP_ISO8601:agentTimestamp} %{DATA:thread} %{DATA:logger} - %{GREEDYDATA:message}"]
-			overwrite => ["message"]
-		}
-		
-		# IMPORTANT: MRS does not care about debug messages!!
-		if [level] == "DEBUG" {
-				drop {}
-		}
-			
-	} else {
-		
-		# setting as unknown message
-		mutate {
-			add_tag => ["unknown"]
-		}
-	}
-	
-	
-	# HANDLING EXCEPTIONS
-	if "unknown" in [tags] {
-		
-		# handling unknown messages
-		mutate {
-			add_tag => ["%{type}"]
-			update => ["type","unknown"]
-		}
-		
-	} else if "_grokparsefailure" in [tags] {
-		
-		# handling parse failures
-		mutate {
-			add_tag => ["%{type}"]
-			update => ["type","failures"]
-		}		
-	} 
-}
+output{
+    stdout {
+        codec => rubydebug
+    }
 
-
-# dispatch to elasticsearch
-output {		
-	# dispatch to an embedded elasticsearch (logstash).
-	# works for standalone messages only.
-	# NEED to think about multi STORE/BRAND and so on...
-	elasticsearch {
-		
-		# job config
-		workers => 1
-		host => ["10.58.1.86"]
-		cluster => "elasticsearchTlt"
-		
-		# indexing destination
-		index => "standalone-%{type}"
-	}
+    if([_internalId]){
+        elasticsearch {
+            # job config
+            workers => 1    
+            host => "10.58.1.17"
+            cluster => "elasticsearch"
+            protocol => "http"
+            document_id => "%{_internalId}"
+            # indexing destination
+            index => "instore"
+        }
+    }
+    else{
+        elasticsearch {
+            # job config
+            workers => 1
+            host => "10.58.1.17"
+            cluster => "elasticsearch"
+            protocol => "http"
+            # indexing destination
+            index => "instore"
+        }
+    }
+    
 }
